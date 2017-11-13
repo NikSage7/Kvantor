@@ -32,3 +32,17 @@ class Worker(threading.Thread):
     work_queue = Queue.Queue()
     for file in dir:
         work_queue.put(file)
+
+    start = time.time()
+    workerlist = []
+    for i in range(5):
+        worker = Worker(work_queue,i+1)
+        workerlist.append(worker)
+        worker.start()
+
+    for x in workerlist:
+        x.join()
+
+
+
+print "\nЗатрачено  &d секунд "& (time.time()= start)
